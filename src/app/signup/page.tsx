@@ -48,7 +48,7 @@ export default function SignupPage() {
         
     
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
+        <div className=" wallpaper flex flex-col items-center justify-center min-h-screen py-2">
             <h1>{loading ? "Procesando" : "Registrase"}</h1>
             <hr/>
             <label htmlFor="Cedula">Cedula</label>
