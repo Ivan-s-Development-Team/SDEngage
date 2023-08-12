@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Axios } from "axios";
+import  Axios  from "axios";
 
 
 export default function SignupPage() {
+    const router = useRouter();
     const [user, setUser] = React.useState({
         Cedula: "",
         Email: "",
@@ -14,16 +15,41 @@ export default function SignupPage() {
         Lastname: "",
         Address: "",
         Sector: "",
+
         
     })
+    const [buttonDisabled, setButtonDisabled] = React.
+    useState(false);
+    const [loading, setLoading] = React.useState(false);
 
     const onSignup = async () => {
-
+        try {
+          setLoading(true);
+          const response = await Axios.post("/api/users/signup", user);
+          console.log("Signup success", response.data);
+          router.push('/login');
+        } catch (error:any) {
+            console.log("Signup failed", error.message)
+        }finally{
+            setLoading(false);
+        }
     }
+
+    useEffect(() => {
+        if(user.Email.length > 0 && user.Password.length > 0 && user.Cedula.length > 0 && user.Sector.length > 0 && user.Firstname.length > 0 && user.Lastname.length > 0 && user.Address.length > 0) {
+            setButtonDisabled(false);
+        } else {
+            setButtonDisabled(true)
+        }
+    })
+
+   
+
+        
+    
     return (
-        <div className="flex flex-col items-center justify-center 
-        min-h-screen py-2">
-            <h1>Registrase</h1>
+        <div className="flex flex-col items-center justify-center min-h-screen py-2">
+            <h1>{loading ? "Procesando" : "Registrase"}</h1>
             <hr/>
             <label htmlFor="Cedula">Cedula</label>
             <input 
@@ -88,7 +114,7 @@ export default function SignupPage() {
             <button 
             onClick={onSignup}
             className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none
-            focus:border-gray-600">Registrase</button>
+            focus:border-gray-600">{buttonDisabled ? "Por favor complete la información necesaria" : "Registrarse"}</button>
             <Link href="/login">Ingresa</Link>
         </div>
     )
