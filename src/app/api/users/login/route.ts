@@ -23,11 +23,14 @@ export async function POST(request: NextRequest){
             return NextResponse.json({error: "Invalid password"}, {status: 400})
         }
 
+<<<<<<< HEAD
         interface TokenDataExample {
             id: string;
             email: string;
         }
 
+=======
+>>>>>>> a2f3c1740cf43f783aa90fcaf0f23592d64549f0
         const tokenData = {
             id: user._id,
             email: user.Email,

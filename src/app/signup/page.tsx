@@ -41,10 +41,6 @@ export default function SignupPage() {
         } else {
             setButtonDisabled(true)
         }
-        
-        const allFieldsFilled = Object.values(user).every(field => field.length > 0);
-        setButtonDisabled(!allFieldsFilled);
-
     })
 
    
