@@ -115,7 +115,7 @@ export default function SignupPage() {
                 value={user.Sector}
                 onChange={(e) => setUser({...user, Sector: e.target.value})}
               >
-                <option value="Alma Rosa I">Alma Rosa I</option>
+                <option value="--Sector--">--Sector--</option>
                 <option value="Alma Rosa II">Alma Rosa II</option>
                 <option value="Ana Teresa Balaguer">Ana Teresa Balaguer</option>
                 <option value="Arismar">Arismar</option>
@@ -178,7 +178,10 @@ export default function SignupPage() {
               >
                 Registrase
               </button>     
-              <Link href="/login" className="mt-2 block text-center text-gray-600">Ingresa</Link>
+              <p className='mt-8'>
+                ¿Ya tienes una cuenta?
+                <a href='/login' className='text-[#14A647] hover:text-[#0A732F] font-semibold'> Inicia sesión </a>
+              </p>
             </div>
           </form>
         </div>
