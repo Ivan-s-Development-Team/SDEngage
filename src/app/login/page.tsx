@@ -22,7 +22,7 @@ export default function LoginPage() {
             setLoading(true);
             const response = await Axios.post("/api/users/login", user);
             console.log("Login success", response.data);
-            router.push("/profile");
+            router.push("./index");
         } catch (error:any) {
             console.log("Login failed", error.message);
         } finally {

@@ -48,74 +48,145 @@ export default function SignupPage() {
         
     
     return (
-        <div className=" wallpaper flex flex-col items-center justify-center min-h-screen py-2">
-            <h1>{loading ? "Procesando" : "Registrase"}</h1>
-            <hr/>
-            <label htmlFor="Cedula">Cedula</label>
-            <input 
-            className="p-2 border border-grau-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-                id="Cedula"
-                type="number"
-                value={user.Cedula}
-                onChange={(e) => setUser({...user, Cedula: e.target.value})}
-                placeholder="123-456-789-12"
+        <div
+        className="flex h-screen bg-cover"
+        style={{
+          backgroundImage: `url(/images/img2.png)`, // Replace with your combined image URL
+        }}
+      >
+      
+        <div className="flex-1 flex justify-center items-center">
+          {/* Registration Form */}
+          <div className="w-full max-w-fit p-6 bg-white shadow-md rounded-lg overflow-hidden">
+           <div className="p-6">
+            <h2 className="text-2xl font-semibold mb-4">Registrase</h2>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="mb-4">
+                <label htmlFor="Cedula" className="block mb-2 text-sm font-medium">
+                  Cedula
+                </label>
+                <input
+                  type="number"
+                  id="Cedula"
+                  name="Cedula"
+                  className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white"
+                  required
+                  value={user.Cedula}
+                  onChange={(e) => setUser({...user, Cedula: e.target.value})}
                 />
-            <label htmlFor="Primer Nombre">Firstname</label>
-            <input 
-            className="p-2 border border-grau-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-                id="Firstname"
-                type="text"
-                value={user.Firstname}
-                onChange={(e) => setUser({...user, Firstname: e.target.value})}
+              </div>
+              <div className="mb-4">
+                <label htmlFor="Firstname" className="block mb-2 text-sm font-medium">
+                Primer Nombre
+                </label>
+                <input
+                  type="text"
+                  id="Firstname"
+                  name="Firstname"
+                  className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white"
+                  required
+                  value={user.Firstname}
+                  onChange={(e) => setUser({...user, Firstname: e.target.value})}
                 />
-            <label htmlFor="Apellido">Lastname</label>
-            <input 
-            className="p-2 border border-grau-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-                id="Lastname"
-                type="text"
-                value={user.Lastname}
-                onChange={(e) => setUser({...user, Lastname: e.target.value})}
+              </div>
+              <div className="mb-4">
+                <label htmlFor="Lastname" className="block mb-2 text-sm font-medium">
+                Apellido
+                </label>
+                <input
+                  type="text"
+                  id="Lastname"
+                  name="Lastname"
+                  className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white"
+                  required
+                  value={user.Lastname}
+                  onChange={(e) => setUser({...user, Lastname: e.target.value})}
                 />
-            <label htmlFor="Sector">Sector</label>
-            <select 
-            className="p-2 border border-grau-300 rounded-lg mb-4 focus:outline-none flex w-fit focus:border-gray-600 text-black"
-            id="Sector"
-            value={user.Sector}
-            onChange={(e) => setUser({...user, Sector: e.target.value})}
-            > <option value="a">Sector</option>
-            <option value="b">b</option>
-            <option value="c">c</option>
-            <option value="d">d</option>
-          </select>
-            <label htmlFor="Direccion">Address</label>
-            <input 
-            className="p-2 border border-grau-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-                id="Address"
-                type="text"
-                value={user.Address}
-                onChange={(e) => setUser({...user, Address: e.target.value})}
+              </div>
+              <div className="mb-4">
+                <label htmlFor="Sector" className="block mb-2 text-sm font-medium">
+                Sector
+                </label>
+                <select
+                  id="Sector"
+                  name="Sector"
+                  className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white"
+                  required
+                  value={user.Sector}
+                  onChange={(e) => setUser({...user, Sector: e.target.value})}
+                >
+                  <option value="--Sector--">--Sector--</option>
+                  <option value="Alma Rosa II">Alma Rosa II</option>
+                  <option value="Ana Teresa Balaguer">Ana Teresa Balaguer</option>
+                  <option value="Arismar">Arismar</option>
+                  <option value="Barrio Ámbar">Barrio Ámbar</option>
+                  <option value="Barrio La Isla">Barrio La Isla</option>
+                  <option value="Brisas del Este">Brisas del Este</option>
+                  <option value="Brisas del Edén">Brisas del Edén</option>
+                  <option value="Cansino Adentro">Cansino Adentro</option>
+                  <option value="Corales del Este">Corales del Este</option>
+              </select>
+              </div>
+              <div className="mb-4">
+                <label htmlFor="Address" className="block mb-2 text-sm font-medium">
+                Direccion
+                </label>
+                <input
+                  type="text"
+                  id="Address"
+                  name="Address"
+                  className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white"
+                  required
+                  value={user.Address}
+                  onChange={(e) => setUser({...user, Address: e.target.value})}
                 />
-            <label htmlFor="Correro Electronico">Email</label>
-            <input 
-            className="p-2 border border-grau-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-                id="Email"
-                type="text"
-                value={user.Email}
-                onChange={(e) => setUser({...user, Email: e.target.value})}
+              </div>
+              <div className="mb-4">
+                <label htmlFor="Email" className="block mb-2 text-sm font-medium">
+                Correro Electronico
+                </label>
+                <input
+                  type="text"
+                  id="Email"
+                  name="Email"
+                  className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white"
+                  required
+                  value={user.Email}
+                  onChange={(e) => setUser({...user, Email: e.target.value})}
                 />
-            <label htmlFor="Contrasena">Password</label>
-            <input 
-            className="p-2 border border-grau-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-                id="Password"
-                type="password"
-                value={user.Password}
-                onChange={(e) => setUser({...user, Password: e.target.value})}
+              </div>
+              <div className="mb-4">
+                <label htmlFor="Password" className="block mb-2 text-sm font-medium">
+                Contrasena
+                </label>
+                <input
+                  type="password"
+                  id="Password"
+                  name="Password"
+                  className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white"
+                  required
+                  value={user.Password}
+                  onChange={(e) => setUser({...user, Password: e.target.value})}
                 />
-            <button 
-            onClick={onSignup}
-            className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none
-            focus:border-gray-600">{buttonDisabled ? "Por favor complete la información necesaria" : "Registrarse"}</button>
-            <Link href="/login">Ingresa</Link>
+              </div>
+              {/* Add more form fields here */}
+              <div className=" col-span-2">
+                <button
+                  onClick={onSignup}
+                  type="submit"
+                  className="w-full block bg-[#14A647]  hover:bg-[#0A732F] px-4 py-3 mt-6 rounded-lg font-semibold text-white focus:bg-blue-400 focus:outline-none"
+                >
+                  Registrase
+                </button>     
+                <p className='mt-8'>
+                  ¿Ya tienes una cuenta?
+                  <a href='/login' className='text-[#14A647] hover:text-[#0A732F] font-semibold'> Inicia sesión </a>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-    )
-}
+      </div>
+      </div>
+    );
+  };
