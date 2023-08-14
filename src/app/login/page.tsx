@@ -53,7 +53,7 @@ export default function LoginPage() {
         <div className='bg-white items-center justify-center flex md-mx-auto lg:max-w-md md:max-w-md md:w-1/2 xl:w-1/3 px-6 lg:px-16 xl:px-12'>
           <div className='w-full h-100'>
             <h1 className='text-2xl  font-semibold '> SDEngage</h1>
-            <h2 className='text-xl md:text-2xl font-bold leading-tight mt-12'>Inicia sesión en tu cuenta</h2>
+            <h2 className='text-xl md:text-2xl font-bold leading-tight mt-12'>{loading ? "Procesando" : "Inicia sesión en tu cuenta"}</h2>
   
             <form action='#' method='POST' className='mt-6'>
               <div>
@@ -72,7 +72,7 @@ export default function LoginPage() {
                 <a href='#' type='submit' className='text-sm font-semibold text-gray-700 hover:text-[#14A647] focus:text-blue-700 focus:outline-none'>¿Olvidaste la contraseña?</a>
               </div>
   
-              <button type='submit' className='w-full block bg-[#14A647]  hover:bg-[#0A732F] px-4 py-3 mt-6 rounded-lg font-semibold text-white focus:bg-blue-400 focus:outline-none'  onClick={onLogin}>Iniciar sesión</button>
+              <button type='submit' className='w-full block bg-[#14A647]  hover:bg-[#0A732F] px-4 py-3 mt-6 rounded-lg font-semibold text-white focus:bg-blue-400 focus:outline-none'  onClick={onLogin}>{buttonDisabled ? "Por favor complete la información necesaria" : "Iniciar Session"}</button>
   
               <p className='mt-8'>
                 ¿Necesitas una cuenta?
