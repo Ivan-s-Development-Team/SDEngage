@@ -59,7 +59,7 @@ export default function SignupPage() {
           {/* Registration Form */}
           <div className="w-full max-w-fit p-6 bg-white shadow-md rounded-lg overflow-hidden">
            <div className="p-6">
-            <h2 className="text-2xl font-semibold mb-4">Registrase</h2>
+            <h2 className="text-2xl font-semibold mb-4">{loading ? "Procesando" : "Registrase"}</h2>
             <div className="grid grid-cols-2 gap-3">
               <div className="mb-4">
                 <label htmlFor="Cedula" className="block mb-2 text-sm font-medium">
@@ -176,7 +176,7 @@ export default function SignupPage() {
                   type="submit"
                   className="w-full block bg-[#14A647]  hover:bg-[#0A732F] px-4 py-3 mt-6 rounded-lg font-semibold text-white focus:bg-blue-400 focus:outline-none"
                 >
-                  Registrase
+                  {buttonDisabled ? "Por favor complete la información necesaria" : "Registrarse"}
                 </button>     
                 <p className='mt-8'>
                   ¿Ya tienes una cuenta?
