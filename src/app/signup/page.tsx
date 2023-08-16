@@ -20,13 +20,13 @@ export default function SignupPage() {
     })
 
 	
-const [fieldStates, setFieldStates] = useState({
+const [fieldStates, setFieldStates] = React.useState({
 
 	Password: { touched: false, error: false },
 	
   });
 
-	const [confirmPassword, setConfirmPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = React.useState('');
 
     const [buttonDisabled, setButtonDisabled] = React.
     useState(false);
@@ -47,9 +47,11 @@ const [fieldStates, setFieldStates] = useState({
     }
 
     useEffect(() => {
-        if(user.Email.length > 0 && user.Password.length > 0 && user.Cedula.length > 0 && user.Sector.length > 0 && user.Firstname.length > 0 && user.Lastname.length > 0 && user.Address.length > 0) {
+        if(user.Email.length > 0 && user.Password.length > 0 && user.Cedula.length > 0 && user.Sector.length > 0 && user.Firstname.length > 0 && user.Lastname.length > 0 && user.Address.length > 0 && confirmPassword == user.Password ) {
             setButtonDisabled(false);
-        } else {
+        } else if (confirmPassword !== user.Password) {
+			setButtonDisabled(true);}
+			else {
             setButtonDisabled(true)
         }
     })
@@ -207,7 +209,7 @@ const [fieldStates, setFieldStates] = useState({
       });
     }}
   />
-  {confirmPassword !== password && confirmPassword !== '' && (
+  {confirmPassword !== user.Password && confirmPassword !== '' && (
     <p className="text-red-500 text-sm mt-1">Las contraseñas no coinciden</p>
   )}
 </div>
