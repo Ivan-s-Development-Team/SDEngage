@@ -169,6 +169,37 @@ export default function SignupPage() {
                   onChange={(e) => setUser({...user, Password: e.target.value})}
                 />
               </div>
+			  <div className="mb-4">
+  <label htmlFor="ConfirmPassword" className="block mb-2 text-sm font-medium">
+    Confirmar contraseña
+  </label>
+  <input
+    type="password"
+    id="ConfirmPassword"
+    name="ConfirmPassword"
+    className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white ${
+      confirmPassword !== user.Password ? 'border-red-500' : ''
+    }`}
+    required
+    value={confirmPassword}
+    onBlur={() =>
+      setFieldStates({
+        ...fieldStates,
+        Password: { ...fieldStates.Password, touched: true },
+      })
+    }
+    onChange={(e) => {
+      setConfirmPassword(e.target.value);
+      setFieldStates({
+        ...fieldStates,
+        Password: { ...fieldStates.Password, touched: true },
+      });
+    }}
+  />
+  {confirmPassword !== password && confirmPassword !== '' && (
+    <p className="text-red-500 text-sm mt-1">Las contraseñas no coinciden</p>
+  )}
+</div>
               {/* Add more form fields here */}
               <div className=" col-span-2">
                 <button
