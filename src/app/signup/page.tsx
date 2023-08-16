@@ -57,7 +57,7 @@ export default function SignupPage() {
       
         <div className="flex-1 flex justify-center items-center">
           {/* Registration Form */}
-          <div className="w-full max-w-fit p-6 bg-white shadow-md rounded-lg overflow-hidden">
+          <div className="w-full max-w-fit p-5 bg-white shadow-md rounded-lg overflow-hidden">
            <div className="p-6">
             <h2 className="text-2xl font-semibold mb-4">{loading ? "Procesando" : "Registrase"}</h2>
             <div className="grid grid-cols-2 gap-3">

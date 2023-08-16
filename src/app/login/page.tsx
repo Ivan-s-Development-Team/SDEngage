@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Axios from 'axios';
 
+
 export default function LoginPage() {
 	const router = useRouter();
 	const [user, setUser] = React.useState({
@@ -58,7 +59,7 @@ export default function LoginPage() {
 				/>
 			</div>
 
-			<div className="bg-white items-center justify-center flex md-mx-auto lg:max-w-md md:max-w-md md:w-1/2 xl:w-1/3 px-6 lg:px-16 xl:px-12">
+			<div className="hidden md:flex md:w-1/3 bg-white h-screen items-center justify-center w-full px-6 lg:px-16 xl:px-12">
         <div className="w-full h-100">
 					<h1 className="text-2xl  font-semibold "> SDEngage</h1>
 					<h2 className="text-xl md:text-2xl font-bold leading-tight mt-12">
