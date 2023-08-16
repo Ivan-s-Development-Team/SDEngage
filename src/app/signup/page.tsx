@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import  Axios  from "axios";
 
 
 export default function SignupPage() {
     const router = useRouter();
-    const [user, setUser] = React.useState({
+    const [user, setUser] = useState({
         Cedula: "",
         Email: "",
         Password: "",

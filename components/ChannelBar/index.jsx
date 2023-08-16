@@ -35,7 +35,7 @@ const Dropdown = ({ header, selections }) => {
       </div>
       {expanded &&
         selections &&
-        selections.map((selection) => <TopicSelection selection={selection} />)}
+        selections.map((selection) => <TopicSelection key={selection} selection={selection} />)}
     </div>
   );
 };
