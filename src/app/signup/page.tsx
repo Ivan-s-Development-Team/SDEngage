@@ -18,8 +18,19 @@ export default function SignupPage() {
 
         
     })
+
+	
+const [fieldStates, setFieldStates] = useState({
+
+	Password: { touched: false, error: false },
+	
+  });
+
+	const [confirmPassword, setConfirmPassword] = useState('');
+
     const [buttonDisabled, setButtonDisabled] = React.
     useState(false);
+
     const [loading, setLoading] = React.useState(false);
 
     const onSignup = async () => {
