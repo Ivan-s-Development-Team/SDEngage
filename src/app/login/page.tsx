@@ -61,7 +61,7 @@ export default function LoginPage() {
 
 			<div className="hidden md:flex md:w-1/3 bg-white h-screen items-center justify-center w-full px-6 lg:px-16 xl:px-12">
         <div className="w-full h-100">
-					<h1 className="text-2xl  font-semibold "> SDEngage</h1>
+					<h1 className="text-2xl  font-semibold justify-center"> SDEngage</h1>
 					<h2 className="text-xl md:text-2xl font-bold leading-tight mt-12">
 						{loading ? 'Procesando' : 'Inicia sesión en tu cuenta'}
 					</h2>
