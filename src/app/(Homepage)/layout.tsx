@@ -6,7 +6,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import Footer from '@/components/footer/Footer';
-import NavBar from '@/components/navBar/NavBar';
+import NavBar from '@/components/ui/navBar';
 
 
 type LayoutProps = {
@@ -29,22 +29,9 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       
-        <div
-          className={`w-full flex-1 pl-0 ${
-            showText
-              ? responsive
-                ? "lg:pl-[212px]"
-                : "lg:pl-[312px]"
-              : "lg:pl-[150px]"
-          } transition-all duration-500 ease-in-out`}
-        >
+        <div>
           {/* Nav Bar */}
-          <NavBar
-            setIsOpen={setIsOpen}
-            isOpen={isOpen}
-            openSidBar={openSidBar}
-            setOpenSidBar={setOpenSidBar}
-          />
+          <NavBar/>
 
           <section
             className={`flex flex-col xl:flex-row gap-5 ${clss} mt-5 sm:mt-10`}
