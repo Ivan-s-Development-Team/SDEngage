@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo_icon from "/public/images/logo_icon.png";
+import logo_icon from "/src/public/images/logo_icon.png";
 
 type NavbarProps = {
   openSidBar: boolean;

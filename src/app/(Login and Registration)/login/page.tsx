@@ -1,8 +1,14 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Axios from 'axios';
+import Sidepic from '/src/public/images/image.png'
+
+
+
 
 
 export default function LoginPage() {
@@ -22,7 +28,7 @@ export default function LoginPage() {
 			setLoading(true);
 			const response = await Axios.post('/api/users/login', user);
 			console.log('Login success', response.data);
-			router.push('/profile');
+			router.push('/profile/[id]');
 		} catch (error: any) {
 			console.log('Login failed', error.message);
          setErrorMessage('Credenciales incorrectas. Por favor, verifica tus datos.');
@@ -42,6 +48,8 @@ export default function LoginPage() {
 		}
 	});
 	return (
+		
+		
 		<section className="flex flex-col md:flex-row h-screen items-center">
 			<div className="h-screen flex justify-center items-center md:w-1/2 xl:w-2/3">
 				<div className="flex justify-center items-center absolute">
@@ -52,19 +60,19 @@ export default function LoginPage() {
 						<br /> DEMOCRACIA EN LA REPÚBLICA DOMINICANA.
 					</h3>
 				</div>
-				<img
-					src="/images/image.png"
-					className="w-full h-full object-cover"
-					alt="imagen Faro de Colon"
-				/>
+				<Image 
+                src={Sidepic}
+                alt="imagen Faro de Colon"
+                className='obw-full h-full object-cover'
+                /> 
 			</div>
 
 			<div className="hidden md:flex md:w-1/3 bg-white h-screen items-center justify-center w-full px-6 lg:px-16 xl:px-12">
         <div className="w-full h-100">
-					<h1 className="text-2xl  font-semibold justify-center"> SDEngage</h1>
-					<h2 className="text-xl md:text-2xl font-bold leading-tight mt-12">
-						{loading ? 'Procesando' : 'Inicia sesión en tu cuenta'}
-					</h2>
+		<h2 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center">
+      <span className="block text-2xl font-semibold">SDEngage</span>
+      {loading ? 'Procesando' : 'Inicia sesión en tu cuenta'}
+    </h2>
 
 					<form action="#" method="POST" className="mt-6">
 						<div>
@@ -118,21 +126,23 @@ export default function LoginPage() {
 								? 'Por favor complete la información necesaria'
 								: 'Iniciar Session'}
 						</button>
-
+					<div className='text-center'>
 						<p className="mt-8">
 							¿Necesitas una cuenta?
-							<a
+							<Link
 								href="/signup"
 								className="text-[#14A647] hover:text-[#0A732F] font-semibold"
 							>
 								{' '}
 								Crear una cuenta
-							</a>
+							</Link>
 						</p>
-
+					</div>
+					<div className='text-center'>
 						<p className="text-sm text-gray-500 mt-12">
 							&copy; 2023 SDEngage inicio de sesión
 						</p>
+					</div>
 					</form>
 				</div>
 			</div>

@@ -1,8 +1,13 @@
 "use client";
+
 import Link from "next/link";
+import Image from "next/image";
+import Backpic from "/src/public/images/img2.png"
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import  Axios  from "axios";
+
+
 
 
 export default function SignupPage() {
@@ -61,14 +66,17 @@ const [fieldStates, setFieldStates] = React.useState({
         
     
     return (
-        <div
-        className="flex h-screen bg-cover"
-        style={{
-          backgroundImage: `url(/images/img2.png)`, // Replace with your combined image URL
-        }}
-      >
+      <div className="flex h-screen relative">
+      <Image
+        src={Backpic} // Adjust the path to your image
+        alt="Background Image"
+        layout="fill"
+        quality={100}
+        objectFit="cover"
+        className="z-0"
+      />
       
-        <div className="flex-1 flex flex-col justify-center items-center">
+        <div className="absolute inset-0 flex flex-col justify-center items-center z-10">
           {/* Registration Form */}
           <div className="w-full max-w-fit p-3 bg-white shadow-md rounded-lg overflow-hidden">
            <div className="p-4">
@@ -224,7 +232,7 @@ const [fieldStates, setFieldStates] = React.useState({
                 </button>     
                 <p className='mt-8 text-center'>
                   ¿Ya tienes una cuenta?
-                  <a href='/login' className='text-[#14A647] hover:text-[#0A732F] font-semibold'> Inicia sesión </a>
+                  <Link href='/login' className='text-[#14A647] hover:text-[#0A732F] font-semibold'> Inicia sesión </Link>
                 </p>
               </div>
             </div>

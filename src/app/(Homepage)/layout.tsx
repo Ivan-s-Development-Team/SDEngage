@@ -1,10 +1,13 @@
-import { useRouter } from "next/router";
+"use client";
+
+
+import '@/styles/globals.css'
+import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import Footer from "./footer/Footer";
-import NavBar from "./navBar/NavBar";
-import Preloader from "./preloader/Preloader";
-import SideBar from "./sideBar/SideBar";
+import Footer from '@/components/footer/Footer';
+import NavBar from '@/components/navBar/NavBar';
+
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -19,25 +22,13 @@ const Layout = ({ children }: LayoutProps) => {
     query: "(max-width: 1200px)",
   });
 
-  const router = useRouter();
+  const pathname = usePathname();
 
-  const clss = router.pathname === "/profile" ? "" : "mx-2 sm:mx-6";
+  const clss = pathname === "/profile" ? "" : "mx-2 sm:mx-6";
 
   return (
     <>
-      {/* Preloader */}
-      <Preloader />
-
-
-      <div className="flex items-start">
-        {/* Side Bar */}
-        <SideBar
-          showText={showText}
-          setShowText={setShowText}
-          openSidBar={openSidBar}
-          setOpenSidBar={setOpenSidBar}
-        />
-
+      
         <div
           className={`w-full flex-1 pl-0 ${
             showText
@@ -64,7 +55,6 @@ const Layout = ({ children }: LayoutProps) => {
           {/* Footer section */}
           <Footer />
         </div>
-      </div>
     </>
   );
 };
