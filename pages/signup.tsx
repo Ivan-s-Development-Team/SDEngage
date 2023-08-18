@@ -80,10 +80,10 @@ const [fieldStates, setFieldStates] = React.useState({
           {/* Registration Form */}
           <div className="w-full max-w-fit p-3 bg-white shadow-md rounded-lg overflow-hidden">
            <div className="p-4">
-            <h2 className="text-2xl font-semibold mb-4 text-center ">{loading ? "Procesando" : "Registrase"}</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-center text-gray-700 ">{loading ? "Procesando" : "Registrase"}</h2>
             <div className="grid grid-cols-2 gap-3">
               <div className="mb-4">
-                <label htmlFor="Cedula" className="block mb-2 text-sm font-medium">
+                <label htmlFor="Cedula" className="block mb-2 text-sm font-medium text-gray-700">
                   Cedula
                 </label>
                 <input
@@ -97,7 +97,7 @@ const [fieldStates, setFieldStates] = React.useState({
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="Firstname" className="block mb-2 text-sm font-medium">
+                <label htmlFor="Firstname" className="block mb-2 text-sm font-medium text-gray-700">
                 Primer Nombre
                 </label>
                 <input
@@ -111,7 +111,7 @@ const [fieldStates, setFieldStates] = React.useState({
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="Lastname" className="block mb-2 text-sm font-medium">
+                <label htmlFor="Lastname" className="block mb-2 text-sm font-medium text-gray-700">
                 Apellido
                 </label>
                 <input
@@ -125,7 +125,7 @@ const [fieldStates, setFieldStates] = React.useState({
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="Sector" className="block mb-2 text-sm font-medium">
+                <label htmlFor="Sector" className="block mb-2 text-sm font-medium text-gray-700">
                 Sector
                 </label>
                 <select
@@ -149,7 +149,7 @@ const [fieldStates, setFieldStates] = React.useState({
               </select>
               </div>
               <div className="mb-4">
-                <label htmlFor="Address" className="block mb-2 text-sm font-medium">
+                <label htmlFor="Address" className="block mb-2 text-sm font-medium text-gray-700">
                 Direccion
                 </label>
                 <input
@@ -163,7 +163,7 @@ const [fieldStates, setFieldStates] = React.useState({
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="Email" className="block mb-2 text-sm font-medium">
+                <label htmlFor="Email" className="block mb-2 text-sm font-medium text-gray-700">
                 Correro Electronico
                 </label>
                 <input
@@ -177,7 +177,7 @@ const [fieldStates, setFieldStates] = React.useState({
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="Password" className="block mb-2 text-sm font-medium">
+                <label htmlFor="Password" className="block mb-2 text-sm font-medium text-gray-700">
                 Contrasena
                 </label>
                 <input
@@ -191,7 +191,7 @@ const [fieldStates, setFieldStates] = React.useState({
                 />
               </div>
 			  <div className="mb-4">
-  <label htmlFor="ConfirmPassword" className="block mb-2 text-sm font-medium">
+  <label htmlFor="ConfirmPassword" className="block mb-2 text-sm font-medium text-gray-700">
     Confirmar contraseña
   </label>
   <input
@@ -230,7 +230,7 @@ const [fieldStates, setFieldStates] = React.useState({
                 >
                   {buttonDisabled ? "Por favor complete la información necesaria" : "Registrarse"}
                 </button>     
-                <p className='mt-8 text-center'>
+                <p className='mt-8 text-center text-gray-700'>
                   ¿Ya tienes una cuenta?
                   <Link href='/login' className='text-[#14A647] hover:text-[#0A732F] font-semibold'> Inicia sesión </Link>
                 </p>
@@ -242,3 +242,13 @@ const [fieldStates, setFieldStates] = React.useState({
       </div>
     );
   };
+
+  SignupPage.getLayout = (page: React.ReactNode) => null;
+
+export async function getServerSideProps() {
+  return {
+    props: {
+      // excludeLayout: true, // No need for this when using getLayout
+    },
+  };
+}

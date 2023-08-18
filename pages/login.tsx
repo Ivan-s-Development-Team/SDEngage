@@ -11,6 +11,8 @@ import Sidepic from '/public/images/image.png'
 
 
 
+
+
 export default function LoginPage() {
 	const router = useRouter();
 	const [user, setUser] = React.useState({
@@ -69,8 +71,8 @@ export default function LoginPage() {
 
 			<div className="hidden md:flex md:w-1/3 bg-white h-screen items-center justify-center w-full px-6 lg:px-16 xl:px-12">
         <div className="w-full h-100">
-		<h2 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center">
-      <span className="block text-2xl font-semibold">SDEngage</span>
+		<h2 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center text-gray-700">
+      <span className="block text-2xl font-semibold text-gray-700">SDEngage</span>
       {loading ? 'Procesando' : 'Inicia sesión en tu cuenta'}
     </h2>
 
@@ -127,7 +129,7 @@ export default function LoginPage() {
 								: 'Iniciar Session'}
 						</button>
 					<div className='text-center'>
-						<p className="mt-8">
+						<p className="mt-8 text-gray-700">
 							¿Necesitas una cuenta?
 							<Link
 								href="/signup"
@@ -148,4 +150,14 @@ export default function LoginPage() {
 			</div>
 		</section>
 	);
+}
+
+LoginPage.getLayout = (page: React.ReactNode) => null;
+
+export async function getServerSideProps() {
+  return {
+    props: {
+      // excludeLayout: true, // No need for this when using getLayout
+    },
+  };
 }
