@@ -15,13 +15,13 @@ const Preloader = (): any => {
     showLoader && (
       <div className="h-screen w-screen flex items-center justify-center relative z-[999] bg-white dark:!bg-[var(--color-gray-8)]">
         <Hearts 
-          height="80"
-          width="80"
-          color="#008000"
-          ariaLabel="hearts-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
+         height="80"
+         width="80"
+         color="#4fa94d"
+         ariaLabel="hearts-loading"
+         wrapperStyle={{}}
+         wrapperClass=""
+         visible={true}
         />
       </div>
     )
