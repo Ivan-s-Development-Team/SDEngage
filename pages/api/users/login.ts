@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 connect()
 
-export async function POST(request: NextRequest){
+export default async function POST(request: NextRequest){
     try {
         
         const reqBody = await request.json()
@@ -45,3 +45,12 @@ export async function POST(request: NextRequest){
         {status:500})
     }
 }
+
+export const config = {
+    api: {
+      bodyParser: {
+        sizeLimit: '1mb',
+      },
+      runtime: 'edge', // Specify "edge" runtime
+    },
+  };

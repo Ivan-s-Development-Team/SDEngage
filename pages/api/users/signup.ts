@@ -5,7 +5,7 @@ import bcryptjs from "bcryptjs";
 
 connect()
 
-export async function POST(request: NextRequest){
+export default async function POST(request: NextRequest){
     try {
         const reqBody = await request.json()
         const {Cedula, Email, Password, Firstname, Lastname, Address, Sector} = reqBody
@@ -41,8 +41,19 @@ export async function POST(request: NextRequest){
         savedUser
     })
 
+    
+
     } catch (error: any) {
         return NextResponse.json({error: error.message},
         {status: 500})
     }
 }
+
+export const config = {
+    api: {
+      bodyParser: {
+        sizeLimit: '1mb',
+      },
+      runtime: 'edge', // Specify "edge" runtime
+    },
+  };

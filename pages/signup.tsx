@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Backpic from "/public/images/img2.png"
 import React, { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import  Axios  from "axios";
 
 
@@ -245,10 +245,4 @@ const [fieldStates, setFieldStates] = React.useState({
 
   SignupPage.getLayout = (page: React.ReactNode) => null;
 
-export async function getServerSideProps() {
-  return {
-    props: {
-      // excludeLayout: true, // No need for this when using getLayout
-    },
-  };
-}
+
