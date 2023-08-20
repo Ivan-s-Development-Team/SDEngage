@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React, { FC } from 'react';
 
+
 type Props = {
 	children: React.ReactNode;
 	title: string;

@@ -56,8 +56,8 @@ const LoginPage = () => {
 
 				<div className="hidden md:flex md:w-1/3 bg-white h-screen items-center justify-center w-full px-6 lg:px-16 xl:px-12">
 					<div className="w-full h-100">
-						<h2 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center">
-							<span className="block text-2xl font-semibold">SDEngage</span>
+						<h2 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center text-gray-700">
+							<span className="block text-2xl font-semibold text-gray-700">SDEngage</span>
 							{loading ? 'Procesando' : 'Inicia sesión en tu cuenta'}
 						</h2>
 
@@ -103,7 +103,7 @@ const LoginPage = () => {
 								<a
 									href="#"
 									type="submit"
-									className="text-sm font-semibold text-gray-700 hover:text-[#14A647] focus:text-blue-700 focus:outline-none"
+									className="text-sm font-semibold text-gray-500 hover:text-[#14A647] focus:text-blue-700 focus:outline-none"
 								>
 									¿Olvidaste la contraseña?
 								</a>
@@ -118,7 +118,7 @@ const LoginPage = () => {
 									: 'Iniciar Session'}
 							</button>
 							<div className="text-center">
-								<p className="mt-8">
+								<p className="mt-8 text-gray-500">
 									¿Necesitas una cuenta?
 									<Link
 										href="/signup"
