@@ -1,28 +1,73 @@
-import Head from 'next/head';
-import React, { FC } from 'react';
+"use client";
 
-type Props = {
-	children: React.ReactNode;
-	title: string;
+
+
+import { useRouter, usePathname } from "next/navigation";
+import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
+import Footer from '@/components/footer/Footer';
+import NavBar from '@/components/navBar/NavBar';
+import SideBar from '@/components/sideBar/SideBar';
+
+type LayoutProps = {
+  children: React.ReactNode;
 };
 
-const PageLayout: FC<Props> = ({ children, title }) => {
-	return (
-		<>
-			<Head>
-				<title>{title}</title>
-				<meta name="description" content={''} />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<meta name="og:title" content={title} />
-				<meta name="og:description" content={'pageDescription'} />
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
+const Layout = ({ children }: LayoutProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [showText, setShowText] = useState(true);
+  const [openSidBar, setOpenSidBar] = useState(false);
 
-			<main >
-				{children}
-			</main>
-		</>
-	);
+  const responsive = useMediaQuery({
+    query: "(max-width: 1200px)",
+  });
+
+  const pathname = usePathname();
+
+  const clss = pathname === "/profile" ? "" : "mx-2 sm:mx-6";
+
+  return (
+    <>
+      
+
+      <div className="flex items-start">
+        {/* Side Bar */}
+        <SideBar
+          showText={showText}
+          setShowText={setShowText}
+          openSidBar={openSidBar}
+          setOpenSidBar={setOpenSidBar}
+        />
+
+        <div
+          className={`w-full flex-1 pl-0 ${
+            showText
+              ? responsive
+                ? "lg:pl-[212px]"
+                : "lg:pl-[312px]"
+              : "lg:pl-[150px]"
+          } transition-all duration-500 ease-in-out`}
+        >
+          {/* Nav Bar */}
+          <NavBar
+            setIsOpen={setIsOpen}
+            isOpen={isOpen}
+            openSidBar={openSidBar}
+            setOpenSidBar={setOpenSidBar}
+          />
+
+          <section
+            className={`flex flex-col xl:flex-row gap-5 ${clss} mt-5 sm:mt-10`}
+          >
+            {children}
+          </section>
+
+          {/* Footer section */}
+          <Footer />
+        </div>
+      </div>
+    </>
+  );
 };
 
-export default  PageLayout;
+export default Layout;
