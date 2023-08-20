@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { validation } from '@/utils';
+import Preloader from '@/components/preloader/Preloader';
 
 type FormData = {
 	email: string;
@@ -36,7 +37,10 @@ const LoginPage = () => {
 	};
 
 	return (
+
+		
 		<AuthLayout title={'login'}>
+			<Preloader />
 			<section className="flex flex-col md:flex-row h-screen items-center">
 				<div className="h-screen flex justify-center items-center md:w-1/2 xl:w-2/3">
 					<div className="flex justify-center items-center absolute">
@@ -57,7 +61,7 @@ const LoginPage = () => {
 				<div className="hidden md:flex md:w-1/3 bg-white h-screen items-center justify-center w-full px-6 lg:px-16 xl:px-12">
 					<div className="w-full h-100">
 						<h2 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center text-gray-700">
-							<span className="block text-2xl font-semibold text-gray-700">SDEngage</span>
+							<span className="block text-2xl font-semibold text-gray-700">SDE💚Despierta</span>
 							{loading ? 'Procesando' : 'Inicia sesión en tu cuenta'}
 						</h2>
 
@@ -131,7 +135,7 @@ const LoginPage = () => {
 							</div>
 							<div className="text-center">
 								<p className="text-sm text-gray-500 mt-12">
-									&copy; 2023 SDEngage inicio de sesión
+									&copy; 2023 SDE💚Despierta inicio de sesión
 								</p>
 							</div>
 						</form>
@@ -141,5 +145,15 @@ const LoginPage = () => {
 		</AuthLayout>
 	);
 };
+
+LoginPage.getLayout = (page: React.ReactNode) => null;
+
+export async function getServerSideProps() {
+  return {
+    props: {
+      // excludeLayout: true, // No need for this when using getLayout
+    },
+  };
+}
 
 export default LoginPage;

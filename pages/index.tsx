@@ -1,14 +1,7 @@
 import { NextPage } from "next";
-import PageLayout from "@/components/layout/PageLayout";
+import HomeMain from "@/components/home/HomeMain";
 
 
-const HomePage: NextPage = () => {
-
-	return (
-		
-       <h1>Home</h1>
-    
-	);
-};
-
-export default HomePage;
+export default function Home() {
+	return <HomeMain />;
+  }

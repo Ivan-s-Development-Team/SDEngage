@@ -111,10 +111,10 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                   onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
-                    href="/create-nft"
+                    href="/quejas"
                     className={`flex items-center gap-2 p-3 ${
                       showText ? "" : "justify-center"
-                    } ${pathname === "/create-nft" ? "side-bar-active" : ""}`}
+                    } ${pathname === "/quejas" ? "side-bar-active" : ""}`}
                     onClick={() => setOpenSidBar(false)}
                   >
                     <span className="material-symbols-outlined">
@@ -123,7 +123,7 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                     <span
                       className={`text-[var(--color-gray-4)] font-semibold text-[16px] leading-[130%]`}
                     >
-                      {showText ? "Create NFT" : ""}
+                      {showText ? "Quejas" : ""}
                     </span>
                   </Link>
                 </li>

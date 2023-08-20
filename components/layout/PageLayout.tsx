@@ -8,6 +8,8 @@ import { useMediaQuery } from "react-responsive";
 import Footer from '@/components/footer/Footer';
 import NavBar from '@/components/navBar/NavBar';
 import SideBar from '@/components/sideBar/SideBar';
+import Preloader from "../preloader/Preloader";
+
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -29,6 +31,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       
+      <Preloader />
 
       <div className="flex items-start">
         {/* Side Bar */}
@@ -59,7 +62,8 @@ const Layout = ({ children }: LayoutProps) => {
           <section
             className={`flex flex-col xl:flex-row gap-5 ${clss} mt-5 sm:mt-10`}
           >
-            {children}
+           {children}
+            
           </section>
 
           {/* Footer section */}
