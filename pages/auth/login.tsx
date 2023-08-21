@@ -14,7 +14,6 @@ type FormData = {
 };
 
 const LoginPage = () => {
-
 	const [user, setUser] = useState({
 		Email: '',
 		Password: '',
@@ -37,8 +36,6 @@ const LoginPage = () => {
 	};
 
 	return (
-
-		
 		<AuthLayout title={'login'}>
 			<Preloader />
 			<section className="flex flex-col md:flex-row h-screen items-center">
@@ -61,7 +58,9 @@ const LoginPage = () => {
 				<div className="hidden md:flex md:w-1/3 bg-white h-screen items-center justify-center w-full px-6 lg:px-16 xl:px-12">
 					<div className="w-full h-100">
 						<h2 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center text-gray-700">
-							<span className="block text-2xl font-semibold text-gray-700">SDE💚Despierta</span>
+							<span className="block text-2xl font-semibold text-gray-700">
+								SDE💚Despierta
+							</span>
 							{loading ? 'Procesando' : 'Inicia sesión en tu cuenta'}
 						</h2>
 
@@ -149,11 +148,11 @@ const LoginPage = () => {
 LoginPage.getLayout = (page: React.ReactNode) => null;
 
 export async function getServerSideProps() {
-  return {
-    props: {
-      // excludeLayout: true, // No need for this when using getLayout
-    },
-  };
+	return {
+		props: {
+			// excludeLayout: true, // No need for this when using getLayout
+		},
+	};
 }
 
 export default LoginPage;

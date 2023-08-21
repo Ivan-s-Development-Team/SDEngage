@@ -1,7 +1,3 @@
-"use client";
-
-
-
 import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
