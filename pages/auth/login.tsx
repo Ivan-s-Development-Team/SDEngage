@@ -124,7 +124,7 @@ const LoginPage = () => {
 								<p className="mt-8 text-gray-500">
 									¿Necesitas una cuenta?
 									<Link
-										href="/signup"
+										href="/auth/signup"
 										className="text-[#14A647] hover:text-[#0A732F] font-semibold"
 									>
 										{' '}

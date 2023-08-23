@@ -1,58 +1,43 @@
-import AreaChart from "../charts/AreaChart";
-import EarnBalance from "./EarnBalance";
-import LiquidityPools from "./LiquidityPools";
-import RecentTransactions from "./RecentTransactions";
-import TotalBalance from "./TotalBalance";
-import WalletAssets from "./WalletAssets";
-import WalletBalance from "./WalletBalance";
+import axios from 'axios';
+import { useState } from 'react';
+import { BsSearch } from 'react-icons/bs';
+import Image from 'next/image';
 
 const HomeMain = () => {
+  const [city, setCity] = useState('');
+  const [weather, setWeather] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=Santo Domingo&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}`;
+
+  const fetchWeather = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    axios.get(url).then((response) => {
+      setWeather(response.data);
+      console.log(response.data);
+    });
+    setCity('');
+    setLoading(false);
+  };
+
   return (
-    <>
-    
-      <div className="w-full xl:w-8/12">
-        <div className="bg-white dark:bg-[var(--color-gray-7)] rounded-lg shadow-[0px_1px_2px_rgba(0,0,0,0.2)]">
-          <div className="flex flex-col items-center justify-center gap-2 text-center relative -mb-14 z-10 pt-6">
-            <p className="text-[24px] leading-[150%] text-[var(--color-gray-5)] dark:text-[var(--color-gray-3)]">
-              Net Worth
-            </p>
-            <h3 className="text-[32px] font-semibold leading-[120%] text-[var(--color-gray-7)] dark:text-white">
-              $1,208.73
-            </h3>
-            <p className="flex items-center text-[var(--color-primary-2)] dark:!text-[var(--color-primary-dark)] font-bold gap-1">
-              <span className="material-symbols-outlined !text-base !text-[var(--color-primary-2)] dark:!text-[var(--color-primary-dark)]">
-                chart_data
-              </span>
-              2.03%
-            </p>
-          </div>
-          {/* Area Chart Section */}
-          <AreaChart />
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 mt-6">
-          {/* Wallet Balance Section */}
-          <WalletBalance />
-
-          {/* Earn Balance Section */}
-          <EarnBalance />
-        </div>
-
-        {/* Wallet Assets Section */}
-        <WalletAssets />
+  <>
+  <div className='absolute top-0 left-0 bottom-0 bg-black/40 z-[1]' />
+    <Image src='https://images.unsplash.com/photo-1496450681664-3df85efbd29f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80' 
+    layout ='fill'
+    alt='' 
+    className='object-cover'
+    />
+  <div className='relative flex justify-between items-center max-w-[500px] w-full m-auto pt-4 text-white z-10'>
+    <form className='flex justify-between items-center w-full m-auto p-3 bg bg-transparent border border-gray-300 text-white rounded-2xl'>
+      <div>
+        <input className='bg-transparent border-none text-white focus:outline-none text-2xl' type="text" placeholder='Seacrh city' />
       </div>
-
-      <div className="w-full xl:w-4/12">
-        {/* Total Balance Section */}
-        <TotalBalance />
-
-        {/* Recent Transactions Section */}
-        <RecentTransactions />
-
-        {/* Liquidity Pools Section */}
-        <LiquidityPools />
-      </div>
-    </>
+      <button onClick={fetchWeather}><BsSearch /></button>
+    </form>
+  </div>
+  </>
   );
 };
 
