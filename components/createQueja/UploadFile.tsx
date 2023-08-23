@@ -57,7 +57,7 @@ const ComplaintForm = () => {
     <>
       <div className="clss mt-6">
         <label htmlFor="complaintType" className="text-[var(--color-black-5)] dark:text-white font-bold block">
-          Type of Complaint:
+        Tipo de denuncia:
         </label>
         <select
           id="complaintType"
@@ -65,15 +65,15 @@ const ComplaintForm = () => {
           value={complaintType}
           onChange={(e) => setComplaintType(e.target.value)}
         >
-          <option value="">Select complaint type</option>
-          <option value="Flooding">Flooding</option>
-          <option value="Potholes">Potholes</option>
+          <option value="">Seleccione el tipo de reclamación</option>
+          <option value="Flooding">Inundaciones</option>
+          <option value="Potholes">Baches</option>
         </select>
 
       </div>
       <div className="mt-5">
         <label htmlFor="duration" className="text-[var(--color-gray-5)] dark:text-white font-bold block">
-          How long has the issue gone on for?
+        ¿Cuánto tiempo ha durado el problema?
         </label>
         <input
           type="text"
@@ -85,7 +85,7 @@ const ComplaintForm = () => {
       </div>
       <div className="flex items-center gap-5 mt-5">
         <label htmlFor="firstTime" className="text-[var(--color-gray-5)] dark:text-white font-bold block">
-          Is this your first time filing a complaint?
+        ¿Es la primera vez que presenta una queja?
         </label>
         <label className="inline-block mr-2">
           <input
@@ -95,7 +95,7 @@ const ComplaintForm = () => {
             checked={firstTime}
             onChange={() => setFirstTime(true)}
           />
-          Yes
+          Si
         </label>
         <label className="inline-block">
           <input
@@ -111,7 +111,7 @@ const ComplaintForm = () => {
       {!firstTime && (
         <div className="mb-4">
           <label htmlFor="timesSubmitted" className="text-[var(--color-gray-5)] dark:text-white font-bold block">
-            How many times have you submitted a complaint about this issue?
+           ¿Cuántas veces ha presentado una queja sobre este tema?
           </label>
           <input
             type="number"
@@ -124,7 +124,7 @@ const ComplaintForm = () => {
       )}
       <div className="mb-4">
         <label htmlFor="description" className="text-[var(--color-gray-5)] dark:text-white font-bold block">
-          Describe the problem in detail:
+        Describa detalladamente el problema:
         </label>
         <textarea
           id="description"
