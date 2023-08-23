@@ -9,6 +9,7 @@ import WalletBalance from "./WalletBalance";
 const HomeMain = () => {
   return (
     <>
+    
       <div className="w-full xl:w-8/12">
         <div className="bg-white dark:bg-[var(--color-gray-7)] rounded-lg shadow-[0px_1px_2px_rgba(0,0,0,0.2)]">
           <div className="flex flex-col items-center justify-center gap-2 text-center relative -mb-14 z-10 pt-6">
