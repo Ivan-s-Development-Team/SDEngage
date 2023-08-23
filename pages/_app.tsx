@@ -49,7 +49,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 	return (
 		<>
-			<Head>
+			{/* <Head>
 				<title>SDE💚Despierta</title>
 				<meta
 					name="SDE💚Despierta"
@@ -73,7 +73,7 @@ export default function App({ Component, pageProps }: AppProps) {
 					sizes="16x16"
 					href="/images/favicon-16x16.png"
 				/>
-			</Head>
+	</Head> */}
 			<SessionProvider>
 				<AuthProvider>
 					<ThemeProvider attribute="class" enableSystem={false} defaultTheme="light">

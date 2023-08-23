@@ -50,6 +50,7 @@ export const AuthProvider:FC<Props>  = ({ children }) => {
 		try {
 			const { data } = await sedeApi.post('/user/login', { Email, Password });
 			const { token, user } = data;
+			console.log(token,user);
 			Cookies.set('token', token);
 			dispatch({ type: '[Auth] - Login', payload: user });
 			return true;
@@ -58,24 +59,11 @@ export const AuthProvider:FC<Props>  = ({ children }) => {
 		}
 	};
 
-
-
-    
-    const logout = () => {
-		
-		signOut();
-		//router.reload();
-		//Cookies.remove('token');
-
-	};
-
 	const registerUser = async (
-		name: string,
-		email: string,
-		password: string,
-	): Promise<{ hasError: boolean; message?: string }> => {
+		Cedula:number,Email:string,Password:string,Firstname:string,Lastname:string,Address:string,Sector:string
+	  ): Promise<{ hasError: boolean; message?: string }> => {
 		try {
-			const { data } = await sedeApi.post('/user/register', { name, email, password });
+			const { data } = await sedeApi.post('/user/register', {Cedula,Email,Password,Firstname,Lastname,Address,Sector});
 			const { token, user } = data;
 			Cookies.set('token', token);
 			dispatch({ type: '[Auth] - Login', payload: user });
@@ -95,6 +83,15 @@ export const AuthProvider:FC<Props>  = ({ children }) => {
 				message: ' no se pudo crear el usuario - intento de nuevo',
 			};
 		}
+	};
+
+
+	const logout = () => {
+		
+		signOut();
+		//router.reload();
+		//Cookies.remove('token');
+
 	};
 
 

@@ -11,6 +11,7 @@ type Data =
 			user: {
 				Email: string;
 				Firstname: string;
+				Lastname:  string;
 				role: string;
 			};
 	  };
@@ -37,18 +38,7 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
 		Sector: string;
 	};
 
-    if (Password.length > 6) {
-		return res.status(400).json({
-			message: 'la contraseña debe ser de 6 caracteres',
-		});
-	}
-
-    if (Firstname.length < 2) {
-		return res.status(400).json({
-			message: 'debe tener mayor a 2 caracteres',
-		});
-	}
-
+	
     //Todo: validar email
 	if(!validation.isValidEmail(Email)){
 		return res.status(400).json({
@@ -67,11 +57,11 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
 		Cedula,
 		Email: Email.toLocaleLowerCase(),
 		Password: bcrypt.hashSync(Password),
-		role: 'client',
 		Firstname,
         Lastname,
         Address,
         Sector,
+		role: 'client',
 	});
 
     try {
@@ -91,8 +81,9 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
 		token,
 		user: {
 			Email,
-			role,
 			Firstname,
+			Lastname,
+			role :"client",
 		},
 	});
 
