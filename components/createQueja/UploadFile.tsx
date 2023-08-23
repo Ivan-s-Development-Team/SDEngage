@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useTheme } from 'next-themes'
+"use client";
+import React, { useState, useEffect } from 'react';
+
 
 const ComplaintForm = () => {
   const [complaintType, setComplaintType] = useState('');
@@ -7,21 +8,50 @@ const ComplaintForm = () => {
   const [firstTime, setFirstTime] = useState(false);
   const [timesSubmitted, setTimesSubmitted] = useState('');
   const [description, setDescription] = useState('');
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  useEffect(() => {
+    if(complaintType.length > 0 && duration.length > 0 && description.length> 0) {
+        setButtonDisabled(false);
+    } else {
+        setButtonDisabled(true)
+    }
+}, [complaintType.length, duration.length, description.length])
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // You would handle the email sending logic here (using a backend API).
-
-    // For demonstration purposes, let's just log the form data.
-    console.log({
-      complaintType,
-      duration,
-      firstTime,
-      timesSubmitted,
-      description,
-    });
+  
+    try {
+      setLoading(true);
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          complaintType,
+          duration,
+          firstTime,
+          timesSubmitted,
+          description,
+        }),
+      });
+  
+      if (response.ok) {
+        console.log('Email sent successfully');
+        setEmailSent(true); 
+      } else {
+        console.error('Error sending email');
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+    } finally{
+      setLoading(false);
+    }
   };
+  
 
   return (
     <>
@@ -105,13 +135,24 @@ const ComplaintForm = () => {
       </div>
       <button
         type="submit"
-        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+        className={`w-full block ${
+          buttonDisabled ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#14A647] hover:bg-[#0A732F]'
+        } px-4 py-3 mt-6 rounded-lg font-semibold text-white focus:bg-blue-400 focus:outline-none`}
+        disabled={buttonDisabled}
         onClick={handleSubmit}
       >
-        Submit Complaint
+        {loading
+          ? 'Procesando...'
+          : buttonDisabled
+          ? 'Por favor complete la información necesaria'
+          : emailSent
+          ? 'Complaint Submitted'
+          : 'Submit Complaint'}
       </button>
     </>
   );
 };
 
 export default ComplaintForm;
+
+
