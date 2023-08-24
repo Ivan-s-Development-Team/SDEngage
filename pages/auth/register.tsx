@@ -33,11 +33,6 @@ const RegisterPage = ({}) => {
 		Sector: '',
 	});
 
-	const [fieldStates, setFieldStates] = useState({
-		Password: { touched: false, error: false },
-	});
-
-	const [confirmPassword, setConfirmPassword] = useState('');
 	const [buttonDisabled, setButtonDisabled] = useState(false);
 	const [loading, setLoading] = useState(false);
 
@@ -83,24 +78,6 @@ const RegisterPage = ({}) => {
 			}, 3000);
 			return;
 		}
-
-		//TODO: navegar a pantalla que el usuario estaba
-		// const destination =router.query.p?.toString() || "/";
-		//router.replace(destination)
-
-		/*
-          try {
-            setShowError(false)
-            const {data}=await tesloApi.post("/user/register",{name,email,password})
-        
-            const {token,user}=data;
-            console.log({token,user})
-            
-            } catch (error) {
-            setTimeout(() => {setShowError(true)}, 3000);
-          }
-          */
-
 		signIn('credentials', { Email, Password });
 	}; // end of function
 
@@ -131,10 +108,10 @@ const RegisterPage = ({}) => {
 											id="Cedula"
 											className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black"
 											required
-                      {...register('Cedula', {
-                        required: 'Este campo es requerido',
-                        minLength: { value: 6, message: 'Mínimo 6 caracteres' },
-                      })}
+											{...register('Cedula', {
+												required: 'Este campo es requerido',
+												minLength: { value: 6, message: 'Mínimo 6 caracteres' },
+											})}
 										/>
 										{errors.Cedula && (
 											<p className="text-red-500 text-sm mt-1">{errors.Cedula.message}</p>
@@ -268,9 +245,9 @@ const RegisterPage = ({}) => {
 											className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black"
 											required
 											{...register('Email', {
-                        required: 'este campo es requerido',
-                        validate: validation.isEmail,
-                      })}
+												required: 'este campo es requerido',
+												validate: validation.isEmail,
+											})}
 										/>
 										{errors.Email && (
 											<p className="text-red-500 text-sm mt-1">{errors.Email.message}</p>
@@ -291,9 +268,9 @@ const RegisterPage = ({}) => {
 											className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black"
 											required
 											{...register('Password', {
-                        required: 'Este campo es requerido',
-                        minLength: { value: 6, message: 'Mínimo 6 caracteres' },
-                      })}
+												required: 'Este campo es requerido',
+												minLength: { value: 6, message: 'Mínimo 6 caracteres' },
+											})}
 											//onChange={(e) => setUser({ ...user, Password: e.target.value })}
 										/>
 										{errors.Password && (
@@ -303,40 +280,7 @@ const RegisterPage = ({}) => {
 										)}
 									</div>
 									{/*confirmar contraseña*/}
-									{/*<div className="mb-4">
-  <label htmlFor="ConfirmPassword" className="block mb-2 text-sm font-medium" style={{ color: '#14532d' }}>
-    Confirmar contraseña
-  </label>
-  <input
-    type="password"
-    id="ConfirmPassword"
-    name="ConfirmPassword"
-    className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white ${
-      confirmPassword !== user.Password ? 'border-red-500' : ''
-    } text-black`}
-    required
-    value={confirmPassword}
-    onBlur={() =>
-      setFieldStates({
-        ...fieldStates,
-        Password: { ...fieldStates.Password, touched: true },
-      })
-    }
-    onChange={(e) => {
-      setConfirmPassword(e.target.value);
-      setFieldStates({
-        ...fieldStates,
-        Password: { ...fieldStates.Password, touched: true },
-      });
-    }}
-  />
-  {confirmPassword !== user.Password && confirmPassword !== '' && (
-    <p className="text-red-500 text-sm mt-1">
-      Las contraseñas no coinciden
-    </p>
-  )}
-</div>}
-{/* Add registro */}
+
 									<div className="col-span-2">
 										<button
 											//onClick={onSignup}
