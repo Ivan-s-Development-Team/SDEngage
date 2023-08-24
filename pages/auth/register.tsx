@@ -59,7 +59,16 @@ const RegisterPage = ({}) => {
 	return (
 		<AuthLayout title={'register'}>
 			<Preloader />
-			<div className="flex h-screen relative">
+			
+			<div
+        className="flex h-screen bg-cover"
+        style={{
+          backgroundImage: `url(/images/img2.png)`, // Replace with your combined image URL
+        }}
+      >
+      
+
+				
 				<div className="absolute inset-0 flex flex-col justify-center items-center z-10">
 					{/* Registration Form */}
 					<div className="w-full max-w-fit p-3 bg-white shadow-md rounded-lg overflow-hidden">
