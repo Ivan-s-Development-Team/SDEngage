@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(405).end();
     }
 
-  const { complaintType, duration, firstTime, timesSubmitted, description } = req.body;
+  const { complaintType, duration, firstTime, timesSubmitted, sector, address, contact, description,  } = req.body;
 
   try {
     const transporter = nodemailer.createTransport({
@@ -25,14 +25,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const mailOptions = {
       from: 'ivansdevelopmentteam@gmail.com',
       to: 'ivansdevelopmentteam@gmail.com',
-      subject: 'New Complaint Form Submission',
+      subject: 'Envío de Nuevo Formulario de Queja',
       html: `
-        <h3>New Complaint Form Submission</h3>
-        <p>Type of Complaint: ${complaintType}</p>
-        <p>Duration: ${duration}</p>
-        <p>First Time: ${firstTime}</p>
-        <p>Times Submitted: ${timesSubmitted}</p>
-        <p>Description: ${description}</p>
+        <h3>Queja</h3>
+        <p>Tipo de denuncia: ${complaintType}</p>
+        <p>Duración: ${duration}</p>
+        <p>Primera vez: ${firstTime}</p>
+        <p>Veces enviadas: ${timesSubmitted}</p>
+        <p>Sector: ${sector}</p>
+        <p>Dirección: ${address}</p>
+        <p>Contacto: ${contact}</p>
+        <p>Descripción: ${description}</p>
       `,
     };
 

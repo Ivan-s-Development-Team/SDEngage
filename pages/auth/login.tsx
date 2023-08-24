@@ -115,13 +115,13 @@ const LoginPage = () => {
 								)}
 							</div>
 							<div className="text-right mt-2">
-								<a
+								<Link
 									href="/forgot-password"
 									type="submit"
 									className="text-sm font-semibold text-gray-500 hover:text-[#14A647] focus:text-blue-700 focus:outline-none"
 								>
 									¿Olvidaste la contraseña?
-								</a>
+								</Link>
 							</div>
 
 							<button
