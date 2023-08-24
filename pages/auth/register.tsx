@@ -16,6 +16,7 @@ type FormData = {
 	Cedula: number;
 	Email: string;
 	Password: string;
+	ConfirmPassword: string;
 	Firstname: string;
 	Lastname: string;
 	Address: string;
@@ -23,53 +24,25 @@ type FormData = {
 };
 
 const RegisterPage = ({}) => {
-	const [user, setUser] = React.useState({
-		Cedula: '',
-		Email: '',
-		Password: '',
-		Firstname: '',
-		Lastname: '',
-		Address: '',
-		Sector: '',
-	});
+	
 
 	const [buttonDisabled, setButtonDisabled] = useState(false);
 	const [loading, setLoading] = useState(false);
-
 	/* register comienzo 💎*/
 	const { registerUser } = useContext(AuthContext);
 
-	const router = useRouter();
-
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<FormData>();
-	const [showError, setShowError] = useState(false);
+	const {register, watch,formState: { errors }, handleSubmit} = useForm<FormData>();
+    const [showError, setShowError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 
-	const onRegisterForm = async ({
-		Cedula,
-		Email,
-		Password,
-		Firstname,
-		Lastname,
-		Address,
-		Sector,
-	}: FormData) => {
+
+	
+	const onRegisterForm = async ({Cedula,Email,Password,Firstname,Lastname,Address,Sector,}: FormData) => {
 		setShowError(false);
 
-		const { hasError, message } = await registerUser(
-			Cedula,
-			Email,
-			Password,
-			Firstname,
-			Lastname,
-			Address,
-			Sector,
-		);
-
+		 
+        const { hasError, message } = await registerUser(Cedula,Email,Password,Firstname,Lastname,Address,Sector);
+  
 		if (hasError) {
 			setShowError(false);
 			setErrorMessage(message!);
@@ -80,7 +53,9 @@ const RegisterPage = ({}) => {
 		}
 		signIn('credentials', { Email, Password });
 	}; // end of function
-
+       
+	const passwords = watch('Password')
+	
 	return (
 		<AuthLayout title={'register'}>
 			<Preloader />
@@ -106,7 +81,8 @@ const RegisterPage = ({}) => {
 										<input
 											type="number"
 											id="Cedula"
-											className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black"
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${ errors.Cedula&&
+												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
 											required
 											{...register('Cedula', {
 												required: 'Este campo es requerido',
@@ -129,7 +105,8 @@ const RegisterPage = ({}) => {
 										<input
 											type="text"
 											id="Firstname"
-											className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black"
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${ errors.Lastname &&
+												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
 											required
 											{...register('Firstname', {
 												required: 'Este campo es requerido',
@@ -155,7 +132,8 @@ const RegisterPage = ({}) => {
 										<input
 											type="text"
 											id="Lastname"
-											className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black"
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${ errors.Lastname &&
+												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
 											required
 											{...register('Lastname', {
 												required: 'Este campo es requerido',
@@ -181,11 +159,11 @@ const RegisterPage = ({}) => {
 										</label>
 										<select
 											id="Sector"
-											className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white"
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white ${ errors.Sector &&
+												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
 											required
 											{...register('Sector', {
 												required: 'Este campo es requerido',
-												minLength: { value: 2, message: 'Mínimo 2 caracteres' },
 											})}
 											style={{ color: 'black' }}
 										>
@@ -216,7 +194,8 @@ const RegisterPage = ({}) => {
 										<input
 											type="text"
 											id="Address"
-											className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black"
+											className={ `w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${ errors.Address &&
+												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
 											required
 											{...register('Address', {
 												required: 'Este campo es requerido',
@@ -242,7 +221,8 @@ const RegisterPage = ({}) => {
 										<input
 											type="text"
 											id="Email"
-											className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black"
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${ errors.Email &&
+												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
 											required
 											{...register('Email', {
 												required: 'este campo es requerido',
@@ -260,18 +240,18 @@ const RegisterPage = ({}) => {
 											className="block mb-2 text-sm font-medium"
 											style={{ color: '#14532d' }}
 										>
-											Contrasena
+											Contraseña
 										</label>
 										<input
 											type="password"
 											id="Password"
-											className="w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black"
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${ errors.Password &&
+												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
 											required
 											{...register('Password', {
 												required: 'Este campo es requerido',
 												minLength: { value: 6, message: 'Mínimo 6 caracteres' },
 											})}
-											//onChange={(e) => setUser({ ...user, Password: e.target.value })}
 										/>
 										{errors.Password && (
 											<p className="text-red-500 text-sm mt-1">
@@ -280,6 +260,35 @@ const RegisterPage = ({}) => {
 										)}
 									</div>
 									{/*confirmar contraseña*/}
+									<div className="mb-4">
+										<label
+											htmlFor="Confirmar contraseña"
+											className="block mb-2 text-sm font-medium"
+											style={{ color: '#14532d' }}
+										>
+											Contrasena
+										</label>
+										<input
+											type="password"
+											id="Confirmar contraseña"
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black  ${ errors.ConfirmPassword &&
+												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+											required
+											{...register('ConfirmPassword', {
+												required: 'Este campo es requerido',
+												minLength: { value: 6, message: 'Mínimo 6 caracteres' },
+												validate: (value) =>
+                                                 value === passwords || "la contraseña no coinciden",
+											})}
+											
+										/>
+										{errors.ConfirmPassword && (
+											<p className="text-red-500 text-sm mt-1">
+												{errors.ConfirmPassword.message}
+												
+											</p>
+										)}
+									</div>
 
 									<div className="col-span-2">
 										<button
