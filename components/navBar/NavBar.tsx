@@ -55,7 +55,7 @@ const NavBar = ({
             
             <button
               type={"button"}
-              className="flex items-center justify-center text-lg leading-[150%] text-[#F8FAFC] bg-[var(--color-primary)] px-3 py-2 rounded-lg"
+              className="flex items-center justify-center text-lg leading-[150%] text-[#F8FAFC] bg-[#7BAAB8] px-3 py-2 rounded-lg"
               onClick={Logout}
             >
               Logout

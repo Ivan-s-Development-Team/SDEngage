@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { FC } from 'react';
+import Preloader from '../preloader/Preloader';
 
 
 type Props = {
@@ -18,7 +19,7 @@ const AuthLayout: FC<Props> = ({ children, title }) => {
 				<meta name="og:description" content={'pageDescription'} />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-
+			<Preloader />
 			<main >
 				{children}
 			</main>

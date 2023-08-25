@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Hearts} from "react-loader-spinner";
+import { InfinitySpin } from "react-loader-spinner";
 
 const Preloader = (): any => {
   const [showLoader, setShowLoader] = useState(true);
@@ -14,14 +14,9 @@ const Preloader = (): any => {
   return (
     showLoader && (
       <div className="h-screen w-screen flex items-center justify-center relative z-[999] bg-white dark:!bg-[var(--color-gray-8)]">
-        <Hearts 
-         height="80"
-         width="80"
-         color="#4fa94d"
-         ariaLabel="hearts-loading"
-         wrapperStyle={{}}
-         wrapperClass=""
-         visible={true}
+        <InfinitySpin 
+        width='200'
+        color="gold"
         />
       </div>
     )

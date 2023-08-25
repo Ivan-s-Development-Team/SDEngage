@@ -63,7 +63,7 @@ const RegisterPage = ({}) => {
 			<div
         className="flex h-screen bg-cover"
         style={{
-          backgroundImage: `url(/images/img2.png)`, // Replace with your combined image URL
+          backgroundImage: `url(/images/register.png)`, // Replace with your combined image URL
         }}
       >
       

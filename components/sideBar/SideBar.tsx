@@ -87,8 +87,6 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
               <ul>
                 <li
                   className="pb-3"
-                  onMouseOver={onMouseOverHandler}
-                  onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
                     href="/"
@@ -107,8 +105,6 @@ const SideBar = ({ showText, setShowText, openSidBar, setOpenSidBar }: any) => {
                 </li>
                 <li
                   className="pb-3"
-                  onMouseOver={onMouseOverHandler}
-                  onMouseLeave={onMouseLeaveHandler}
                 >
                   <Link
                     href="/quejas"

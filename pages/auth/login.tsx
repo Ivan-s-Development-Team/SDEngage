@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AuthLayout from '@/components/layout/AuthLayout';
 import Link from 'next/link';
-import Sidepic from '@/public/assets/image.png';
+import Sidepic from '@/public/assets/login.png';
 import Image from 'next/image';
 import { signIn, getSession, getProviders } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
@@ -42,12 +42,7 @@ const LoginPage = () => {
 			<section className="flex flex-col md:flex-row h-screen items-center">
 				<div className="h-screen flex justify-center items-center md:w-1/2 xl:w-2/3">
 					<div className="flex justify-center items-center absolute">
-						<h3 className=" text-[10px] font-light text-center text-white md:leading-[55px] sm:leading-[55px] sm:text-5xl">
-							SOMOS EL RENACER DE LA ESPERANZA DEL
-							<br /> PUEBLO. LA EXPRESIÓN DE LA VOLUNTAD
-							<br /> CIUDADANA POR LA RENOVACIÓN DE LA
-							<br /> DEMOCRACIA EN LA REPÚBLICA DOMINICANA.
-						</h3>
+						
 					</div>
 					<Image
 						src={Sidepic}
@@ -60,7 +55,7 @@ const LoginPage = () => {
 					<div className="w-full h-100">
 						<h2 className="text-xl md:text-2xl font-bold leading-tight mt-12 text-center text-gray-700">
 							<span className="block text-2xl font-semibold text-gray-700">
-								SDE💚Despierta
+								SDE Online
 							</span>
 							{loading ? 'Procesando' : 'Inicia sesión en tu cuenta'}
 						</h2>
@@ -146,7 +141,7 @@ const LoginPage = () => {
 							</div>
 							<div className="text-center">
 								<p className="text-sm text-gray-500 mt-12">
-									&copy; 2023 SDE💚Despierta inicio de sesión
+									&copy; 2023 SDE Online inicio de sesión
 								</p>
 							</div>
 						</form>
