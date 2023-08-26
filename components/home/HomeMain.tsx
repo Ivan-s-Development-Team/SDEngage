@@ -69,7 +69,7 @@ const Home: React.FC = () => {
 
   return (
     <PageLayout>
-      <div className="flex flex-col items-center justify-center h-screen pl-96">
+      <div className="flex flex-col items-center justify-center  pl-96">
         <Head>
           <title>Clima - Aplicación Next</title>
           <meta name='description' content='Generado por la aplicación Next' />
