@@ -1,4 +1,5 @@
 
+import Preloader from "../preloader/Preloader";
 import UploadFile from "./UploadFile";
 import PageLayout from '@/components/layout/PageLayout';
 

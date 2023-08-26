@@ -58,7 +58,7 @@ const RegisterPage = ({}) => {
 	
 	return (
 		<AuthLayout title={'register'}>
-			<Preloader />
+			
 			
 			<div
         className="flex h-screen bg-cover"
@@ -331,7 +331,7 @@ const RegisterPage = ({}) => {
 	);
 };
 
-//RegisterPage.getLayout = (page: React.ReactNode) => null;
+RegisterPage.getLayout = (page: React.ReactNode) => null;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
 	const session = await getSession({ req });

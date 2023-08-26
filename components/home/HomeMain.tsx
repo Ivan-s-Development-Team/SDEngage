@@ -5,6 +5,7 @@ import axios from 'axios';
 import { BsSearch } from 'react-icons/bs';
 import Weather from './Weather';
 import PageLayout from '@/components/layout/PageLayout';
+import Preloader from '../preloader/Preloader';
 
 interface WeatherData {
   weather: {

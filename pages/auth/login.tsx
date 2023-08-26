@@ -38,7 +38,7 @@ const LoginPage = () => {
 
 	return (
 		<AuthLayout title={'login'}>
-			<Preloader />
+			
 			<section className="flex flex-col md:flex-row h-screen items-center">
 				<div className="h-screen flex justify-center items-center md:w-1/2 xl:w-2/3">
 					<div className="flex justify-center items-center absolute">
@@ -48,6 +48,7 @@ const LoginPage = () => {
 						src={Sidepic}
 						alt="imagen Faro de Colon"
 						className="obw-full h-full object-cover"
+						priority={true}
 					/>
 				</div>
 
@@ -63,6 +64,7 @@ const LoginPage = () => {
 						<form onSubmit={handleSubmit(onLoginUser)} noValidate className="mt-6">
 							<div>
 								<label
+									htmlFor="email"
 									className="block text-black font-semibold"
 									style={{ color: '#14532d' }}
 								>
@@ -88,6 +90,7 @@ const LoginPage = () => {
 
 							<div className="mt-4">
 								<label
+									htmlFor="password"
 									className="block text-black font-semibold"
 									style={{ color: '#14532d' }}
 								>

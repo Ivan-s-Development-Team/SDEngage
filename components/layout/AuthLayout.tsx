@@ -11,6 +11,7 @@ type Props = {
 const AuthLayout: FC<Props> = ({ children, title }) => {
 	return (
 		<>
+		<Preloader />
 			<Head>
 				<title>{title}</title>
 				<meta name="description" content={''} />
@@ -19,7 +20,7 @@ const AuthLayout: FC<Props> = ({ children, title }) => {
 				<meta name="og:description" content={'pageDescription'} />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Preloader />
+			
 			<main >
 				{children}
 			</main>
