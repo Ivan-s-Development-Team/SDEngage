@@ -69,13 +69,13 @@ const Home: React.FC = () => {
 
   return (
     <PageLayout>
-      <div className="flex flex-col items-center justify-center  pl-96">
+      <div className="flex flex-col items-center justify-center h-screen pl-96">
         <Head>
           <title>Clima - Aplicación Next</title>
           <meta name='description' content='Generado por la aplicación Next' />
           <link rel='icon' href='/favicon.ico' />
         </Head>
-        <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/40 z-[1]' />
+        <div className='absolute top-0 left-0 right-0 bottom-0  bg-black/40 z-[1]' />
         <Image
           src='https://images.unsplash.com/photo-1611952961634-349806683d73?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80'
           layout='fill'
