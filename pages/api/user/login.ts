@@ -1,61 +1,68 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcryptjs';
 import { db } from '@/database';
 import { jwt } from '@/utils';
-import  User  from '@/model/User';
-
+import User from '@/model/User';
 
 type Data =
-	| { message: string }
-	| {
-			token: string;
-			user: {
-				Email: string;
-				Firstname: string;
-				role: string;
-			};
-	  };
+  | { message: string }
+  | {
+      token: string;
+      user: {
+        Email: string;
+        Firstname: string;
+        role: string;
+      };
+    };
 
-export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-	switch (req.method) {
-		case 'POST':
-			return loginUser(req, res);
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
+  switch (req.method) {
+    case 'POST':
+      try {
+        await loginUser(req, res);
+      } catch (error) {
+        console.error('Error during login:', error); // Registrar el error en el servidor, pero no en la consola del navegador
+        res.status(500).json({ message: 'Internal server error' });
+      }
+      break;
 
-		default:
-			res.status(400).json({
-				message: 'bad request',
-			});
-	}
+    default:
+      res.status(400).json({
+        message: 'Bad request',
+      });
+  }
 }
 
-const loginUser= async(req: NextApiRequest, res: NextApiResponse<Data>)=> {
-	const { Email = '', Password = '' } = req.body;
+const loginUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+  const { Email = '', Password = '' } = req.body;
 
-	await db.connect();
-	const user = await User.findOne({ Email }).lean();
-	await db.disconnect();
-      
-    if (!user) {
-		return res.status(404).json({ message: 'Usuario no encontrado' });
-	}
+  await db.connect();
+  const user = await User.findOne({ Email }).lean();
+  await db.disconnect();
 
+  if (!user) {
+    return res.status(404).json({ message: 'Usuario no encontrado - Email' });
+  }
 
-	if (!bcrypt.compareSync(Password, user.Password!)) {
-		return res.status(404).json({ message: 'Correo o contraceña no valido -Password' });
-	}
-    
-	const {role,Firstname,_id}=user;
+  const passwordIsValid = bcrypt.compareSync(Password, user.Password!);
 
-    const token = jwt.signToken(_id,Email) 
+  if (!passwordIsValid) {
+    return res.status(401).json({ message: 'Credenciales inválidas' });
+  }
 
+  const { role, Firstname, _id } = user;
 
-	return res.status(200).json({
-		token,
-		user:{
-		   Email,role,Firstname
-		   }
+  const token = jwt.signToken(_id, Email);
 
-})
-
-}
+  return res.status(200).json({
+    token,
+    user: {
+      Email,
+      role,
+      Firstname,
+    },
+  });
+};

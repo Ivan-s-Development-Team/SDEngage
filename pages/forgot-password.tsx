@@ -18,7 +18,7 @@ const ForgotPasswordPage = () => {
 
   const onSubmit = (data: FormData) => {
     // Handle password recovery logic here
-    console.log('Password recovery initiated for:', data.email);
+    //console.log('Password recovery initiated for:', data.email);
   };
 
   return (

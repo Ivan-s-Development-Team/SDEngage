@@ -1,94 +1,86 @@
-
-import { dbUsers } from "@/database";
-import NextAuth,{NextAuthOptions} from "next-auth"
-import Credentials from "next-auth/providers/credentials";
-
+import { db, dbUsers } from '@/database';
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
 
 declare module 'next-auth' {
-  interface Session {
-    accessToken?: string;
-  }
+	interface Session {
+		accessToken?: string;
+	}
 }
 
+export const authOptions: NextAuthOptions = {
+	// Configure one or more authentication providers
 
-export const authOptions:NextAuthOptions= {
-  // Configure one or more authentication providers
- 
-  providers: [
-    // ...add more providers here
+	providers: [
+		// ...add more providers here
 
-    Credentials({
-     name: 'Custom Login',
-     credentials: {
-       Email: { label: 'Correo:', type: 'email', placeholder: 'correo@google.com'  },
-       Password: { label: 'Contraseña:', type: 'password', placeholder: 'Contraseña'  },
-     },
-    
-     async authorize(credentials) {
-       const user = await dbUsers.checkUserEmailPassword(credentials!.Email, credentials!.Password);
-       if (user) {
-         return { ...user, id: user._id };
-       }
-       return null;
-     },
-   }),
+		Credentials({
+			name: 'Custom Login',
+			credentials: {
+				Email: { label: 'Correo:', type: 'email', placeholder: 'correo@google.com' },
+				Password: { label: 'Contraseña:', type: 'password', placeholder: 'Contraseña' },
+			},
 
- ],
+			async authorize(credentials) {
+				db.connect().catch((error) => {
+					error: 'Connection Failed...!';
+				});
+				const user = await dbUsers.checkUserEmailPassword(
+					credentials!.Email,
+					credentials!.Password,
+				);
+				if (user) {
+					return { ...user, id: user._id };
+				}
 
- //custom page
+				return null;
+			},
+		}),
+	],
 
- pages:{
-  signIn:"/auth/login",
-  newUser:"/auth/register",
-},
+	//custom page
 
+	pages: {
+		signIn: '/auth/login',
+		newUser: '/auth/register',
+	},
 
-session:{
-maxAge:259200, //30d
-strategy:"jwt",
-updateAge:86400 //cada dia
-},
+	session: {
+		maxAge: 259200, //30d
+		strategy: 'jwt',
+		updateAge: 86400, //cada dia
+	},
 
+	//callback
+	//callback para guardar la data de la seccion entre otras cosas
 
-//callback
-//callback para guardar la data de la seccion entre otras cosas
+	callbacks: {
+		async jwt({ token, account, user }) {
+			
+			// console.log({token,account,user})
 
-callbacks:{
+			if (account) {
+				token.accessToken = account.access_token;
 
-async jwt({ token, account,user }) {
-  // Persist the OAuth access_token and or the user id to the token right after signin
- // console.log({token,account,user})
- 
- if(account){
-  token.accessToken= account.access_token;
+				switch (account.type) {
+					case 'credentials':
+						token.user = user;
+						break;
+				}
+			}
 
-  switch(account.type){
+			return token;
+		},
 
+		async session({ session, token, user }) {
+			({ session, token, user });
 
-      case 'credentials':
-       token.user=user
-       break;
-  }
+			session.accessToken = token.accessToken as any;
+			session.user = token.user as any;
 
- }
+			return session;
+		},
+	}, // end callback
+};
 
-
-  return token
-},
-
-async session({ session, token, user }) {
-  console.log({session,token,user})
-  
-  session.accessToken= token.accessToken  as any
-  session.user=token.user as any;
-
-  return session
-
-}
-
-   } // end callback
-
-      
-}
-
-export default NextAuth(authOptions)
+export default NextAuth(authOptions);

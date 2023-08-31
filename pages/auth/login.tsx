@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import AuthLayout from '@/components/layout/AuthLayout';
 import Link from 'next/link';
 import Sidepic from '@/public/assets/login.png';
@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { validation } from '@/utils';
 import Preloader from '@/components/preloader/Preloader';
 import { GetServerSideProps } from 'next';
+import { AuthContext } from '@/context/auth';
 
 type FormData = {
 	Email: string;
@@ -15,14 +16,8 @@ type FormData = {
 };
 
 const LoginPage = () => {
-	const [user, setUser] = useState({
-		Email: '',
-		Password: '',
-	});
-
-	const [buttonDisabled, setButtonDisabled] = useState(false);
-	const [loading, setLoading] = useState(false);
-	const [errorMessage, setErrorMessage] = useState(''); // State for error message
+	//const [user, setUser] = useState({Email: '',Password: '',});
+	const { loginUser } = useContext(AuthContext);
 
 	const {
 		register,
@@ -30,20 +25,32 @@ const LoginPage = () => {
 		formState: { errors },
 	} = useForm<FormData>();
 
+	const [errorMessage, setErrorMessage] = useState(''); // State for error message
+	const [showError, setShowError] = useState(false);
+	const [failedAttempts, setFailedAttempts] = useState(0);
+
 	const onLoginUser = async ({ Email, Password }: FormData) => {
-		//setShowError(false)
+		setShowError(false);
+		const isValidLogin = await loginUser(Email, Password);
+
+		if (!isValidLogin) {
+			setFailedAttempts(failedAttempts + 1);
+			if (failedAttempts >= 4) {
+				location.reload();
+			}
+			setShowError(true);
+			setTimeout(() => setShowError(false), 8000);
+			return;
+		}
 
 		signIn('credentials', { Email, Password });
 	};
 
 	return (
 		<AuthLayout title={'login'}>
-			
 			<section className="flex flex-col md:flex-row h-screen items-center">
 				<div className="h-screen flex justify-center items-center md:w-1/2 xl:w-2/3">
-					<div className="flex justify-center items-center absolute">
-						
-					</div>
+					<div className="flex justify-center items-center absolute"></div>
 					<Image
 						src={Sidepic}
 						alt="imagen Faro de Colon"
@@ -58,7 +65,6 @@ const LoginPage = () => {
 							<span className="block text-2xl font-semibold text-gray-700">
 								SDE Online
 							</span>
-							{loading ? 'Procesando' : 'Inicia sesión en tu cuenta'}
 						</h2>
 
 						<form onSubmit={handleSubmit(onLoginUser)} noValidate className="mt-6">
@@ -71,6 +77,7 @@ const LoginPage = () => {
 									Correo Electrónico
 								</label>
 								<div className="text-red-500">{errorMessage}</div>
+								<div className="text-red-500">{showError}</div>
 								<input
 									type="email"
 									id="email"
@@ -111,6 +118,11 @@ const LoginPage = () => {
 								{errors.Password && (
 									<p className="text-red-500 text-sm mt-1">{errors.Password.message}</p>
 								)}
+								{showError && (
+									<p className="text-red-500 text-sm mt-1">
+										Credenciales incorrectas. Inténtalo de nuevo.
+									</p>
+								)}
 							</div>
 							<div className="text-right mt-2">
 								<Link
@@ -126,9 +138,7 @@ const LoginPage = () => {
 								type="submit"
 								className="w-full block bg-[#14A647]  hover:bg-[#0A732F] px-4 py-3 mt-6 rounded-lg font-semibold text-white focus:bg-blue-400 focus:outline-none"
 							>
-								{buttonDisabled
-									? 'Por favor complete la información necesaria'
-									: 'Iniciar Session'}
+								Iniciar seccion
 							</button>
 							<div className="text-center">
 								<p className="mt-8 text-gray-500">
@@ -155,11 +165,12 @@ const LoginPage = () => {
 	);
 };
 
-LoginPage.getLayout = (page: React.ReactNode) => null;
+//LoginPage.getLayout = (page: React.ReactNode) => null;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
 	const session = await getSession({ req });
 	console.log({ session });
+
 	const { p = '/' } = query;
 
 	if (session) {

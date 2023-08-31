@@ -73,11 +73,20 @@ export const AuthProvider:FC<Props>  = ({ children }) => {
 			};
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
-				return {
+				if (error.response?.data.message === '--Este correo ya esta registrado') {
+				  return {
 					hasError: true,
-					message: error.response?.data.message,
-				};
-			}
+					message: 'El correo electrónico ya está registrado',
+				  };
+				} else if (error.response?.data.message === '-cedula registrada') {
+				  return {
+					hasError: true,
+					message: 'La cédula ya está registrada',
+				  };
+				}
+			  }
+			
+			  
 			return {
 				hasError: true,
 				message: ' no se pudo crear el usuario - intento de nuevo',

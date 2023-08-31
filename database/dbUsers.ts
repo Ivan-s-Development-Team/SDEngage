@@ -7,7 +7,7 @@ import { User } from '@/model';
 export const checkUserEmailPassword = async( Email: string, Password: string ) => {
 
     await db.connect();
-    const user = await User.findOne({ Email });
+    const user = await User.findOne({ Email }).lean();
     await db.disconnect();
 
     if ( !user ) {
@@ -16,7 +16,7 @@ export const checkUserEmailPassword = async( Email: string, Password: string ) =
 
     if ( !bcrypt.compareSync( Password, user.Password! ) ) {
         return null;
-    }
+    } 
 
 
     const { role, Firstname, _id } = user;

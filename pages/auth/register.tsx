@@ -24,26 +24,52 @@ type FormData = {
 };
 
 const RegisterPage = ({}) => {
-	
-
 	const [buttonDisabled, setButtonDisabled] = useState(false);
 	const [loading, setLoading] = useState(false);
-	/* register comienzo 💎*/
 	const { registerUser } = useContext(AuthContext);
-
-	const {register, watch,formState: { errors }, handleSubmit} = useForm<FormData>();
-    const [showError, setShowError] = useState(false);
+	const {
+		register,
+		watch,
+		formState: { errors },
+		handleSubmit,
+	} = useForm<FormData>();
+	const [showError, setShowError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [failedAttempts, setFailedAttempts] = useState(0);
 
-
-	
-	const onRegisterForm = async ({Cedula,Email,Password,Firstname,Lastname,Address,Sector,}: FormData) => {
+	const onRegisterForm = async ({
+		Cedula,
+		Email,
+		Password,
+		Firstname,
+		Lastname,
+		Address,
+		Sector,
+	}: FormData) => {
 		setShowError(false);
 
-		 
-        const { hasError, message } = await registerUser(Cedula,Email,Password,Firstname,Lastname,Address,Sector);
-  
+		setIsSubmitting(true); // Bloquear el botón al iniciar la solicitud
+
+		const { hasError, message } = await registerUser(
+			Cedula,
+			Email,
+			Password,
+			Firstname,
+			Lastname,
+			Address,
+			Sector,
+		);
+
+		setTimeout(() => {
+			setIsSubmitting(false); // Desbloquear el botón después de la solicitud
+		}, 2000);
+		console.log(hasError);
 		if (hasError) {
+			setFailedAttempts(failedAttempts + 1);
+			if (failedAttempts >= 4) {
+				location.reload();
+			}
 			setShowError(false);
 			setErrorMessage(message!);
 			setTimeout(() => {
@@ -51,24 +77,20 @@ const RegisterPage = ({}) => {
 			}, 3000);
 			return;
 		}
+
 		signIn('credentials', { Email, Password });
 	}; // end of function
-       
-	const passwords = watch('Password')
-	
+
+	const passwords = watch('Password');
+
 	return (
 		<AuthLayout title={'register'}>
-			
-			
 			<div
-        className="flex h-screen bg-cover"
-        style={{
-          backgroundImage: `url(/images/register.png)`, // Replace with your combined image URL
-        }}
-      >
-      
-
-				
+				className="flex h-screen bg-cover"
+				style={{
+					backgroundImage: `url(/images/register.png)`, // Replace with your combined image URL
+				}}
+			>
 				<div className="absolute inset-0 flex flex-col justify-center items-center z-10">
 					{/* Registration Form */}
 					<div className="w-full max-w-fit p-3 bg-white shadow-md rounded-lg overflow-hidden">
@@ -87,19 +109,34 @@ const RegisterPage = ({}) => {
 										>
 											Cedula
 										</label>
+
 										<input
-											type="number"
+											type="text"
 											id="Cedula"
-											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${ errors.Cedula&&
-												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${
+												errors.Cedula &&
+												'focus:border-red-500 focus:ring-red-500 border-red-500'
+											}`}
 											required
+											maxLength={11} // Allow up to 11 digits
 											{...register('Cedula', {
 												required: 'Este campo es requerido',
-												minLength: { value: 6, message: 'Mínimo 6 caracteres' },
+												pattern: {
+													value: /^\d{11}$/,
+													message: 'La cédula debe contener 11 dígitos',
+												},
 											})}
+											onInput={(event) => {
+												const input = event.target as HTMLInputElement;
+												input.value = input.value.replace(/\D/g, '').slice(0, 11);
+											}}
 										/>
+
 										{errors.Cedula && (
 											<p className="text-red-500 text-sm mt-1">{errors.Cedula.message}</p>
+										)}
+										{showError && errorMessage === 'La cédula ya está registrada' && (
+											<p className="text-red-500 text-sm mt-1">{errorMessage}</p>
 										)}
 									</div>
 									{/*nombre */}
@@ -114,8 +151,10 @@ const RegisterPage = ({}) => {
 										<input
 											type="text"
 											id="Firstname"
-											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${ errors.Lastname &&
-												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${
+												errors.Lastname &&
+												'focus:border-red-500 focus:ring-red-500 border-red-500'
+											}`}
 											required
 											{...register('Firstname', {
 												required: 'Este campo es requerido',
@@ -141,8 +180,10 @@ const RegisterPage = ({}) => {
 										<input
 											type="text"
 											id="Lastname"
-											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${ errors.Lastname &&
-												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${
+												errors.Lastname &&
+												'focus:border-red-500 focus:ring-red-500 border-red-500'
+											}`}
 											required
 											{...register('Lastname', {
 												required: 'Este campo es requerido',
@@ -168,8 +209,10 @@ const RegisterPage = ({}) => {
 										</label>
 										<select
 											id="Sector"
-											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white ${ errors.Sector &&
-												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white ${
+												errors.Sector &&
+												'focus:border-red-500 focus:ring-red-500 border-red-500'
+											}`}
 											required
 											{...register('Sector', {
 												required: 'Este campo es requerido',
@@ -203,8 +246,10 @@ const RegisterPage = ({}) => {
 										<input
 											type="text"
 											id="Address"
-											className={ `w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${ errors.Address &&
-												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${
+												errors.Address &&
+												'focus:border-red-500 focus:ring-red-500 border-red-500'
+											}`}
 											required
 											{...register('Address', {
 												required: 'Este campo es requerido',
@@ -230,8 +275,10 @@ const RegisterPage = ({}) => {
 										<input
 											type="text"
 											id="Email"
-											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${ errors.Email &&
-												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${
+												errors.Email &&
+												'focus:border-red-500 focus:ring-red-500 border-red-500'
+											}`}
 											required
 											{...register('Email', {
 												required: 'este campo es requerido',
@@ -241,6 +288,10 @@ const RegisterPage = ({}) => {
 										{errors.Email && (
 											<p className="text-red-500 text-sm mt-1">{errors.Email.message}</p>
 										)}
+										{showError &&
+											errorMessage === 'El correo electrónico ya está registrado' && (
+												<p className="text-red-500 text-sm mt-1">{errorMessage}</p>
+											)}
 									</div>
 									{/*contraseña*/}
 									<div className="mb-4">
@@ -254,8 +305,10 @@ const RegisterPage = ({}) => {
 										<input
 											type="password"
 											id="Password"
-											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${ errors.Password &&
-												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black ${
+												errors.Password &&
+												'focus:border-red-500 focus:ring-red-500 border-red-500'
+											}`}
 											required
 											{...register('Password', {
 												required: 'Este campo es requerido',
@@ -275,39 +328,37 @@ const RegisterPage = ({}) => {
 											className="block mb-2 text-sm font-medium"
 											style={{ color: '#14532d' }}
 										>
-											Contrasena
+											Contraseña
 										</label>
 										<input
 											type="password"
 											id="Confirmar contraseña"
-											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black  ${ errors.ConfirmPassword &&
-												"focus:border-red-500 focus:ring-red-500 border-red-500"}`}
+											className={`w-full bg-gray-200 rounded-lg px-4 py-3 mt-2 border focus:border-[#14A647] focus:outline-none focus:bg-white text-black  ${
+												errors.ConfirmPassword &&
+												'focus:border-red-500 focus:ring-red-500 border-red-500'
+											}`}
 											required
 											{...register('ConfirmPassword', {
 												required: 'Este campo es requerido',
 												minLength: { value: 6, message: 'Mínimo 6 caracteres' },
 												validate: (value) =>
-                                                 value === passwords || "la contraseña no coinciden",
+													value === passwords || 'la contraseña no coinciden',
 											})}
-											
 										/>
 										{errors.ConfirmPassword && (
 											<p className="text-red-500 text-sm mt-1">
 												{errors.ConfirmPassword.message}
-												
 											</p>
 										)}
 									</div>
 
 									<div className="col-span-2">
 										<button
-											//onClick={onSignup}
 											type="submit"
 											className="w-full block bg-[#14A647] hover:bg-[#0A732F] px-4 py-3 mt-6 rounded-lg font-semibold text-white focus:bg-blue-400 focus:outline-none"
+											disabled={isSubmitting} // Deshabilitar el botón cuando se está enviando la solicitud
 										>
-											{buttonDisabled
-												? 'Por favor complete la información necesaria'
-												: 'Registrarse'}
+											{isSubmitting ? 'Procesando...' : 'Registrarse'}
 										</button>
 										<p className="mt-8 text-center text-black">
 											¿Ya tienes una cuenta?
@@ -331,7 +382,7 @@ const RegisterPage = ({}) => {
 	);
 };
 
-RegisterPage.getLayout = (page: React.ReactNode) => null;
+//RegisterPage.getLayout = (page: React.ReactNode) => null;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
 	const session = await getSession({ req });

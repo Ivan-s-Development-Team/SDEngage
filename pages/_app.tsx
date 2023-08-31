@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 	return (
 		<>
-			<Head>
+		{/*	<Head>
 				<title>SDE💚Despierta</title>
 				<meta
 					name="SDE💚Despierta"
@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				/>
 				
 	</Head>
-			<SessionProvider>
+	*/}<SessionProvider>
 				<AuthProvider>
 					<ThemeProvider attribute="class" enableSystem={false} defaultTheme="light">
 						
